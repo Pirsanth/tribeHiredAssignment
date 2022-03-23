@@ -61,7 +61,8 @@ const Header = ({showBackButton, title, onBackButtonPress, showInnerLoading}) =>
         showInnerLoading && (
           <View style={{
             position:'absolute',
-            width:'10%',
+            width:'8%',
+            marginRight:'2%',
             right:0,
             top:0,
             bottom:0,
