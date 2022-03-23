@@ -24,16 +24,70 @@ import Header from './Header';
 import axios from 'axios';
 import _ from 'lodash';
 
+const AMOUNT_TO_TAKE_PER_FETCH = 10;
 
-const App = (props) => {
+
+const AllPosts = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [resTotal, setResTotal] = useState(0);
+  const [showInnerLoading, setShowInnerLoading] = useState(false);
+  const AMOUNT_TO_TAKE_PER_FETCH = 20;
+  let fetchRequestNo = 0;
+
+
+  const getNextPage = () => {
+    return Math.ceil(data.length/AMOUNT_TO_TAKE_PER_FETCH) + 1;
+}
+
+
+const onEndReached = () => {
+  //if it has fetched all of the data already, return
+  if(data.length === resTotal){
+      return;
+  }
+  setShowInnerLoading(true);
+  // console.log('onEndReached getNextPage()')
+  // console.log(getNextPage())
+
+  let params = {
+      _limit:AMOUNT_TO_TAKE_PER_FETCH,
+      _page:getNextPage()
+  }
+
+  const innerFetchNo = fetchRequestNo + 1;
+  fetchRequestNo = innerFetchNo;
+
+  axios.get('/posts', {
+      params: params
+  })
+  .then(res => {      
+      if(fetchRequestNo !== innerFetchNo){
+          return;
+      }
+      const additionalData = res.data;
+      const newData = [...data, ...additionalData];
+      setData(newData);
+      setShowInnerLoading(false);
+  })
+  .catch(x => {
+      console.log('ar caught')
+      console.log(x)
+  })
+
+}
+
 
   useEffect(() => {
-    axios.get('/posts')
+    axios.get('/posts', {
+      params:{
+        _limit:AMOUNT_TO_TAKE_PER_FETCH,
+        _page:1
+      }
+    })
     .then(res => {
-      // console.log('res success')
-      // console.log(res.data)
+      console.log('res header')
+      console.log(typeof res.headers["link"])
       setIsLoading(false);
       setData(res.data)
     })
@@ -101,6 +155,7 @@ const App = (props) => {
             width:'100%',
             flex:1
           }}
+          onEndReached={onEndReached}
         />
       )
     }
@@ -116,7 +171,7 @@ const App = (props) => {
     }}>
       <Header 
         title="All Posts"
-        // showInnerLoading
+        showInnerLoading={showInnerLoading}
         // title="All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts"
       />
       <View style={{
@@ -133,4 +188,4 @@ const App = (props) => {
 };
 
 
-export default App;
+export default AllPosts;
