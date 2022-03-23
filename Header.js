@@ -27,11 +27,11 @@ const Header = ({showBackButton, title, onBackButtonPress, showInnerLoading}) =>
   return (
     <View style={{
       width:'100%',
-      backgroundColor:'powderblue',
       justifyContent:'center',
       alignItems:'center',
       height:100,
       flexDirection:'row',
+      backgroundColor:'steelblue'
     }}>
       {
         showBackButton && (
@@ -39,7 +39,6 @@ const Header = ({showBackButton, title, onBackButtonPress, showInnerLoading}) =>
             position:'absolute',
             width:'10%',
             left:0,
-            backgroundColor:'red',
             top:0,
             bottom:0,
             justifyContent:'center',
@@ -52,7 +51,7 @@ const Header = ({showBackButton, title, onBackButtonPress, showInnerLoading}) =>
         )
       }
 
-      <View style={{width:'80%', justifyContent:'center', alignItems:'center', backgroundColor:'pink'}}>
+      <View style={{width:'80%', justifyContent:'center', alignItems:'center', }}>
         <Text 
         // ellipsizeMode="tail"
         style={{fontWeight:'bold', color:COLOR, fontSize:24, textAlign:'center'}}>{title}</Text>
@@ -64,7 +63,6 @@ const Header = ({showBackButton, title, onBackButtonPress, showInnerLoading}) =>
             position:'absolute',
             width:'10%',
             right:0,
-            backgroundColor:'red',
             top:0,
             bottom:0,
             justifyContent:'center',

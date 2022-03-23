@@ -125,20 +125,22 @@ const Comments = (props) => {
   renderItem = ({item},index) => {
 
     return (
-    <TouchableOpacity style={{
-          backgroundColor:'red',
+    <View style={{
+          borderColor:'black',
+          borderWidth:1,
           height:120,
           width:'88%',
           alignSelf:'center',
           marginBottom:10,
           padding:20,
           borderRadius:12,
-          overflow:'hidden'
+          overflow:'hidden',
+          backgroundColor:'#d8f4ff'
         }}>
-          <Text style={{fontWeight:'bold',marginBottom:5}}>{item?.name}</Text>
+          <Text style={{fontWeight:'900',marginBottom:5, color:'#31697e'}}>{item?.name}</Text>
           <Text style={{marginBottom:5}}>{item?.email}</Text>
           <Text style={{marginBottom:5}}>{item?.body}</Text>
-      </TouchableOpacity>
+      </View>
     )
     
   }
@@ -181,8 +183,8 @@ const Comments = (props) => {
   return (
     <SafeAreaView style={{
       flex:1,
-      backgroundColor:'orange',
-      width:'100%'
+      width:'100%',
+      backgroundColor:'#b1eaff',
     }}>
       <Header 
         title="Comments"
@@ -204,7 +206,7 @@ const Comments = (props) => {
           autoCapitalize="none"
           value={keyword} 
           placeholder="Enter keyword to filter by" 
-          style={{width:'88%',backgroundColor:'white',alignSelf:'center',padding:10,marginTop:10, borderRadius:8}}
+          style={{width:'88%',backgroundColor:'white',alignSelf:'center',padding:10,marginTop:10, borderRadius:8, borderColor:'black', borderWidth:1,}}
           onChangeText={(x)=>{ setKeyword(x)}}
         
         />

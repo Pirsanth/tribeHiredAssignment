@@ -108,14 +108,16 @@ const onEndReached = () => {
     // console.log(index)
     return (
     <TouchableOpacity style={{
-          backgroundColor:'red',
+          borderWidth:1,
+          borderColor:'black',
           height:120,
           width:'88%',
           alignSelf:'center',
           marginBottom:10,
           padding:20,
           borderRadius:12,
-          overflow:'hidden'
+          overflow:'hidden',
+          backgroundColor:'#d8f4ff'
         }}
         onPress={()=>{
           props.navigation.navigate("Comments",{
@@ -123,7 +125,7 @@ const onEndReached = () => {
           })
         }}
         >
-          <Text style={{fontWeight:'bold',marginBottom:5}}>{item?.title}</Text>
+          <Text style={{fontWeight:'900',marginBottom:5, color:'#31697e'}}>{item?.title}</Text>
           <Text style={{marginBottom:5}}>{item?.body}</Text>
       </TouchableOpacity>
     )
@@ -169,8 +171,9 @@ const onEndReached = () => {
   return (
     <SafeAreaView style={{
       flex:1,
-      backgroundColor:'orange',
-      width:'100%'
+      width:'100%',
+      backgroundColor:'#b1eaff',
+      // backgroundColor:'powderblue'
     }}>
       <Header 
         title="All Posts"
