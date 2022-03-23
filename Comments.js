@@ -26,25 +26,32 @@ import axios from 'axios';
 import _ from 'lodash';
 import RadioGroup from 'react-native-radio-buttons-group';
 
+const RADIO_ENUM = {
+  "All":"1",
+  "Name":"2",
+  "Email":"3",
+  "Body":"4"
+};
+
 const radioButtonsData = [
 {
-  id: '1', // acts as primary key, should be unique and non-empty string
+  id: RADIO_ENUM["All"], // acts as primary key, should be unique and non-empty string
   label: 'All',
   value: 'All',
   selected:true
 }, 
 {
-  id: '2',
+  id: RADIO_ENUM["Name"],
   label: 'Name',
   value: 'Name'
 },
 {
-  id: '3', // acts as primary key, should be unique and non-empty string
+  id: RADIO_ENUM["Email"], // acts as primary key, should be unique and non-empty string
   label: 'Email',
   value: 'Email'
 }, 
 {
-  id: '4', // acts as primary key, should be unique and non-empty string
+  id: RADIO_ENUM["Body"], // acts as primary key, should be unique and non-empty string
   label: 'Body',
   value: 'Body'
 }, 
@@ -62,13 +69,33 @@ const Comments = (props) => {
   }
 
   useEffect(() => {
+    const selectedButtonId = radioButtons.filter(x => !!x.selected)[0].id;
+
+
     if(!keyword){
       setFilteredData(data);
     } else {
-      data.filter(item=> {
+      const filteredData= data.filter(item=> {
         
+        if(selectedButtonId === RADIO_ENUM["Name"]){
+          return item?.name.includes(keyword)
+        }
+        else if(selectedButtonId === RADIO_ENUM["Email"]){
+          return item?.email.includes(keyword)
+        }
+        else if(selectedButtonId === RADIO_ENUM["Body"]){
+          return item?.body.includes(keyword)
+        }
+        else if(selectedButtonId === RADIO_ENUM["All"]){
+          // return item?.body.includes(keyword)
+          return ([item.body, item.name, item.email]).some(x => x.includes(keyword))          
+        }
+
       })
 
+      console.log('change setFilteredData')
+      console.log(selectedButtonId)
+      setFilteredData(filteredData);
     }
 
   }, [keyword, radioButtons, data])
@@ -76,7 +103,6 @@ const Comments = (props) => {
   useEffect(() => {
     const postId = _.get(props, "route.params.postId", 1);
 
-    console.log(postId)
     axios.get('/comments',{
       params: {
         postId
@@ -139,7 +165,7 @@ const Comments = (props) => {
       return (
         <FlatList 
           renderItem={renderItem}
-          data={data}
+          data={filteredData}
           style={{
             // width:'90%',
             width:'100%',
@@ -175,6 +201,7 @@ const Comments = (props) => {
         />
 
         <TextInput 
+          autoCapitalize="none"
           value={keyword} 
           placeholder="Enter keyword to filter by" 
           style={{width:'88%',backgroundColor:'white',alignSelf:'center',padding:10,marginTop:10, borderRadius:8}}
