@@ -7,7 +7,6 @@
  */
 
 import React, {useEffect,useState} from 'react';
-import type {Node} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -47,8 +46,6 @@ const onEndReached = () => {
       return;
   }
   setShowInnerLoading(true);
-  // console.log('onEndReached getNextPage()')
-  // console.log(getNextPage())
 
   let params = {
       _limit:AMOUNT_TO_TAKE_PER_FETCH,
@@ -71,7 +68,7 @@ const onEndReached = () => {
       setShowInnerLoading(false);
   })
   .catch(x => {
-      console.log('ar caught')
+      console.log('caught')
       console.log(x)
   })
 
@@ -86,7 +83,6 @@ const onEndReached = () => {
       }
     })
     .then(res => {
-      console.log('res header')
       const lastUrl = ParseLink(res.headers["link"]).last;
       const lastPage = (new URL(lastUrl)).searchParams.get("_page");
       const resTotal = lastPage*AMOUNT_TO_TAKE_PER_FETCH;
@@ -103,9 +99,6 @@ const onEndReached = () => {
   }, [])
 
   renderItem = ({item},index) => {
-    // console.log('x')
-    // console.log(item)
-    // console.log(index)
     return (
     <TouchableOpacity style={{
           borderWidth:1,
@@ -141,7 +134,6 @@ const onEndReached = () => {
     }
 
     if(_.isEmpty(data)){
-      // if(true){
       return (
         <Text style={{
           color:'black',
@@ -178,7 +170,6 @@ const onEndReached = () => {
       <Header 
         title="All Posts"
         showInnerLoading={showInnerLoading}
-        // title="All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts"
       />
       <View style={{
         flex:1,

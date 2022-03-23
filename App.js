@@ -15,10 +15,10 @@ import _ from 'lodash';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native'
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/';
-
 const {Navigator, Screen} = createStackNavigator<LoginParamList>()
-const App = () => {
-  
+
+
+const App = () => {  
 
   return (
     <NavigationContainer>

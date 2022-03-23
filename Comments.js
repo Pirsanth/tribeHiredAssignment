@@ -7,7 +7,6 @@
  */
 
 import React, {useEffect,useState} from 'react';
-import type {Node} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -35,7 +34,7 @@ const RADIO_ENUM = {
 
 const radioButtonsData = [
 {
-  id: RADIO_ENUM["All"], // acts as primary key, should be unique and non-empty string
+  id: RADIO_ENUM["All"], 
   label: 'All',
   value: 'All',
   selected:true
@@ -46,12 +45,12 @@ const radioButtonsData = [
   value: 'Name'
 },
 {
-  id: RADIO_ENUM["Email"], // acts as primary key, should be unique and non-empty string
+  id: RADIO_ENUM["Email"], 
   label: 'Email',
   value: 'Email'
 }, 
 {
-  id: RADIO_ENUM["Body"], // acts as primary key, should be unique and non-empty string
+  id: RADIO_ENUM["Body"], 
   label: 'Body',
   value: 'Body'
 }, 
@@ -87,14 +86,10 @@ const Comments = (props) => {
           return item?.body.includes(keyword)
         }
         else if(selectedButtonId === RADIO_ENUM["All"]){
-          // return item?.body.includes(keyword)
           return ([item.body, item.name, item.email]).some(x => x.includes(keyword))          
         }
 
       })
-
-      console.log('change setFilteredData')
-      console.log(selectedButtonId)
       setFilteredData(filteredData);
     }
 
@@ -109,8 +104,6 @@ const Comments = (props) => {
       }
     })
     .then(res => {
-      console.log('res success')
-      console.log(res.data)
       setIsLoading(false);
       setData(res.data)
     })
@@ -154,7 +147,6 @@ const Comments = (props) => {
     }
 
     if(_.isEmpty(data)){
-      // if(true){
       return (
         <Text style={{
           color:'black',
@@ -169,7 +161,6 @@ const Comments = (props) => {
           renderItem={renderItem}
           data={filteredData}
           style={{
-            // width:'90%',
             width:'100%',
             flex:1
           }}
@@ -192,7 +183,6 @@ const Comments = (props) => {
         onBackButtonPress={()=>{
           props.navigation.pop()
         }}
-        // title="All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts"
       />
 
         <Text style={{fontSize:20, margin:5}}>Filter:</Text>
@@ -208,7 +198,6 @@ const Comments = (props) => {
           placeholder="Enter keyword to filter by" 
           style={{width:'88%',backgroundColor:'white',alignSelf:'center',padding:10,marginTop:10, borderRadius:8, borderColor:'black', borderWidth:1,}}
           onChangeText={(x)=>{ setKeyword(x)}}
-        
         />
 
       <View style={{
