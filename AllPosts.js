@@ -23,8 +23,6 @@ import {
 import Header from './Header';
 import axios from 'axios';
 import _ from 'lodash';
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/';
-// 'https://jsonplaceholder.typicode.com/posts'
 
 
 const App = (props) => {
@@ -118,7 +116,7 @@ const App = (props) => {
     }}>
       <Header 
         title="All Posts"
-        
+        // showInnerLoading
         // title="All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts"
       />
       <View style={{
