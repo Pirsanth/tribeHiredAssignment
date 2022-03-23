@@ -23,7 +23,7 @@ import {
 import Header from './Header';
 import axios from 'axios';
 import _ from 'lodash';
-
+import ParseLink from 'parse-links';
 const AMOUNT_TO_TAKE_PER_FETCH = 10;
 
 
@@ -87,7 +87,10 @@ const onEndReached = () => {
     })
     .then(res => {
       console.log('res header')
-      console.log(typeof res.headers["link"])
+      const lastUrl = ParseLink(res.headers["link"]).last;
+      const lastPage = (new URL(lastUrl)).searchParams.get("_page");
+      const resTotal = lastPage*AMOUNT_TO_TAKE_PER_FETCH;
+      setResTotal(resTotal);
       setIsLoading(false);
       setData(res.data)
     })
