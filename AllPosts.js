@@ -100,17 +100,15 @@ const onEndReached = () => {
 
   renderItem = ({item},index) => {
     return (
-    <TouchableOpacity style={{
+      <TouchableOpacity style={{
+          padding:20,
           borderWidth:1,
           borderColor:'black',
-          height:120,
+          backgroundColor:'#d8f4ff',
           width:'88%',
-          alignSelf:'center',
           marginBottom:10,
-          padding:20,
+          alignSelf:'center',
           borderRadius:12,
-          overflow:'hidden',
-          backgroundColor:'#d8f4ff'
         }}
         onPress={()=>{
           props.navigation.navigate("Comments",{
@@ -118,8 +116,16 @@ const onEndReached = () => {
           })
         }}
         >
-          <Text style={{fontWeight:'900',marginBottom:5, color:'#31697e'}}>{item?.title}</Text>
-          <Text style={{marginBottom:5}}>{item?.body}</Text>
+        <View style={{
+              height:120,
+              overflow:'hidden',
+            }}
+            >
+              <Text style={{fontWeight:'900',marginBottom:5, color:'#31697e'}}>{item?.title}</Text>
+              {/* <View style={{overflow:'hidden'}}> */}
+                <Text style={{marginBottom:5}}>{item?.body}</Text>
+              {/* </View> */}
+          </View>
       </TouchableOpacity>
     )
     

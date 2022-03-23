@@ -115,24 +115,57 @@ const Comments = (props) => {
 
   }, [])
 
-  renderItem = ({item},index) => {
+  // renderItem = ({item},index) => {
 
+  //   return (
+  //   <View style={{
+  //         borderColor:'black',
+  //         borderWidth:1,
+  //         height:120,
+  //         width:'88%',
+  //         alignSelf:'center',
+  //         marginBottom:10,
+  //         padding:20,
+  //         borderRadius:12,
+  //         overflow:'hidden',
+  //         backgroundColor:'#d8f4ff'
+  //       }}>
+  //         <Text style={{fontWeight:'900',marginBottom:5, color:'#31697e'}}>{item?.name}</Text>
+  //         <Text style={{marginBottom:5}}>{item?.email}</Text>
+  //         <Text style={{marginBottom:5}}>{item?.body}</Text>
+  //     </View>
+  //   )
+    
+  // }
+
+
+  renderItem = ({item},index) => {
     return (
-    <View style={{
-          borderColor:'black',
-          borderWidth:1,
-          height:120,
-          width:'88%',
-          alignSelf:'center',
-          marginBottom:10,
+      <View style={{
           padding:20,
+          borderWidth:1,
+          borderColor:'black',
+          backgroundColor:'#d8f4ff',
+          width:'88%',
+          marginBottom:10,
+          alignSelf:'center',
           borderRadius:12,
-          overflow:'hidden',
-          backgroundColor:'#d8f4ff'
-        }}>
-          <Text style={{fontWeight:'900',marginBottom:5, color:'#31697e'}}>{item?.name}</Text>
-          <Text style={{marginBottom:5}}>{item?.email}</Text>
-          <Text style={{marginBottom:5}}>{item?.body}</Text>
+        }}
+        onPress={()=>{
+          props.navigation.navigate("Comments",{
+            postId: item?.id
+          })
+        }}
+        >
+        <View style={{
+              height:120,
+              overflow:'hidden',
+            }}
+            >
+             <Text style={{fontWeight:'900',marginBottom:5, color:'#31697e'}}>{item?.name}</Text>
+             <Text style={{marginBottom:5, fontWeight:'bold'}}>{item?.email}</Text>
+             <Text style={{marginBottom:5}}>{item?.body}</Text>
+          </View>
       </View>
     )
     
