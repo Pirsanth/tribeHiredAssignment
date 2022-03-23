@@ -23,19 +23,24 @@ import {
 import Header from './Header';
 import axios from 'axios';
 import _ from 'lodash';
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/';
-// 'https://jsonplaceholder.typicode.com/posts'
 
 
-const App = () => {
+const Comments = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('/posts')
+    const postId = _.get(props, "route.params.postId", 1);
+
+    console.log(postId)
+    axios.get('/comments',{
+      params: {
+        postId
+      }
+    })
     .then(res => {
-      // console.log('res success')
-      // console.log(res.data)
+      console.log('res success')
+      console.log(res.data)
       setIsLoading(false);
       setData(res.data)
     })
@@ -48,9 +53,7 @@ const App = () => {
   }, [])
 
   renderItem = ({item},index) => {
-    console.log('x')
-    console.log(item)
-    console.log(index)
+
     return (
     <TouchableOpacity style={{
           backgroundColor:'red',
@@ -62,7 +65,8 @@ const App = () => {
           borderRadius:12,
           overflow:'hidden'
         }}>
-          <Text style={{fontWeight:'bold',marginBottom:5}}>{item?.title}</Text>
+          <Text style={{fontWeight:'bold',marginBottom:5}}>{item?.name}</Text>
+          <Text style={{marginBottom:5}}>{item?.email}</Text>
           <Text style={{marginBottom:5}}>{item?.body}</Text>
       </TouchableOpacity>
     )
@@ -112,7 +116,10 @@ const App = () => {
     }}>
       <Header 
         title="Comments"
-        
+        showBackButton
+        onBackButtonPress={()=>{
+          props.navigation.pop()
+        }}
         // title="All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts"
       />
       <View style={{
@@ -129,4 +136,4 @@ const App = () => {
 };
 
 
-export default App;
+export default Comments;

@@ -48,9 +48,9 @@ const App = (props) => {
   }, [])
 
   renderItem = ({item},index) => {
-    console.log('x')
-    console.log(item)
-    console.log(index)
+    // console.log('x')
+    // console.log(item)
+    // console.log(index)
     return (
     <TouchableOpacity style={{
           backgroundColor:'red',
@@ -63,7 +63,9 @@ const App = (props) => {
           overflow:'hidden'
         }}
         onPress={()=>{
-          props.navigation.navigate("Comments")
+          props.navigation.navigate("Comments",{
+            postId: item?.id
+          })
         }}
         >
           <Text style={{fontWeight:'bold',marginBottom:5}}>{item?.title}</Text>

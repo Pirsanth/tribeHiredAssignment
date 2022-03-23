@@ -20,7 +20,7 @@ import {
 import FontIcon from 'react-native-vector-icons/FontAwesome';
 
 
-const Header = ({showBackButton, title}) => {
+const Header = ({showBackButton, title, onBackButtonPress}) => {
   const COLOR = 'white';
 
   return (
@@ -43,7 +43,9 @@ const Header = ({showBackButton, title}) => {
             bottom:0,
             justifyContent:'center',
             alignItems:'center'
-          }}>
+          }}
+          onPress={onBackButtonPress}
+          >
           <FontIcon name="arrow-left" size={22} color={COLOR}/>
         </TouchableOpacity>
         )
