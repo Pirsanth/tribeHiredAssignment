@@ -16,6 +16,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   useColorScheme,
   View,
@@ -23,11 +24,54 @@ import {
 import Header from './Header';
 import axios from 'axios';
 import _ from 'lodash';
+import RadioGroup from 'react-native-radio-buttons-group';
 
+const radioButtonsData = [
+{
+  id: '1', // acts as primary key, should be unique and non-empty string
+  label: 'All',
+  value: 'All',
+  selected:true
+}, 
+{
+  id: '2',
+  label: 'Name',
+  value: 'Name'
+},
+{
+  id: '3', // acts as primary key, should be unique and non-empty string
+  label: 'Email',
+  value: 'Email'
+}, 
+{
+  id: '4', // acts as primary key, should be unique and non-empty string
+  label: 'Body',
+  value: 'Body'
+}, 
+]
 
 const Comments = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [radioButtons, setRadioButtons] = useState(radioButtonsData)
+  const [keyword, setKeyword] = useState('')
+
+  function onPressRadioButton(radioButtonsArray) {
+      setRadioButtons(radioButtonsArray);
+  }
+
+  useEffect(() => {
+    if(!keyword){
+      setFilteredData(data);
+    } else {
+      data.filter(item=> {
+        
+      })
+
+    }
+
+  }, [keyword, radioButtons, data])
 
   useEffect(() => {
     const postId = _.get(props, "route.params.postId", 1);
@@ -122,6 +166,22 @@ const Comments = (props) => {
         }}
         // title="All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts All Posts"
       />
+
+        <Text style={{fontSize:20, margin:5}}>Filter:</Text>
+        <RadioGroup 
+            radioButtons={radioButtons} 
+            onPress={onPressRadioButton} 
+            layout='row'
+        />
+
+        <TextInput 
+          value={keyword} 
+          placeholder="Enter keyword to filter by" 
+          style={{width:'88%',backgroundColor:'white',alignSelf:'center',padding:10,marginTop:10, borderRadius:8}}
+          onChangeText={(x)=>{ setKeyword(x)}}
+        
+        />
+
       <View style={{
         flex:1,
         justifyContent:'center',
